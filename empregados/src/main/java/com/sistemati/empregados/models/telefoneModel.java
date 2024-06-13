@@ -11,7 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "alergias")
+@Table(name = "telefones")
 public class telefoneModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -20,21 +20,36 @@ public class telefoneModel implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id_tel;
 	
-    @ManyToOne
-    @JoinColumn(name="id", nullable=false)
-    private empregadoModel empregadoTel;
-    
-    public telefoneModel() {}
-    
-    /*private String telefone;
 
-	public String getTelefone() {
+	@ManyToOne
+    @JoinColumn(name="id", nullable=false)
+    private empregadoModel telefone;
+    
+
+
+	public empregadoModel getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+    public Integer getId_tel() {
+		return id_tel;
+	}
+
+
+
+	public void setId_tel(Integer id_tel) {
+		this.id_tel = id_tel;
+	}
+
+
+	public void setTelefone(empregadoModel telefone) {
 		this.telefone = telefone;
-	}*/
+	}
+
+
+
+	public telefoneModel() {}
+   
 
 
     

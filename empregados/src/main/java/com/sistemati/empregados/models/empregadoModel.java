@@ -1,8 +1,9 @@
 package com.sistemati.empregados.models;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,16 +25,16 @@ public class empregadoModel implements Serializable {
 	private String empregado;
 	private String email;
 	
-	@OneToMany(mappedBy="empregadoTel")
-	Set<telefoneModel> telefone;
+	@OneToMany(mappedBy="telefone", cascade=CascadeType.PERSIST)
+	private List<telefoneModel> telefone;
+	
+	@OneToMany(mappedBy="alergia", cascade=CascadeType.PERSIST)
+	private List<alergiaModel> alergia;
+	
+	@OneToMany(mappedBy="problemasaude", cascade=CascadeType.PERSIST)
+	private List<problemaSaudeModel> problemasaude;
 	
 
-	@OneToMany(mappedBy="empregadoAlergia")
-	Set<alergiaModel> alergias;
-	
-	@OneToMany(mappedBy="empregadoProbl")
-	Set<problemaSaudeModel> problemasMedicos;
-	
 	public Integer getId() {
 		return id;
 	}
@@ -53,24 +54,24 @@ public class empregadoModel implements Serializable {
 		this.email = email;
 	}
 	
-	public Set<telefoneModel> getTelefone() {
+	public List<telefoneModel> getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(Set<telefoneModel> telefone) {
+	public void setTelefone(List<telefoneModel> telefone) {
 		this.telefone = telefone;
 	}
-	public Set<problemaSaudeModel> getProblemasMedicos() {
-		return problemasMedicos;
-	}
-	public void setProblemasMedicos(Set<problemaSaudeModel> problemasMedicos) {
-		this.problemasMedicos = problemasMedicos;
-	}
-	public Set<alergiaModel> getAlergias() {
-		return alergias;
-	}
-	public void setAlergias(Set<alergiaModel> alergias) {
-		this.alergias = alergias;
-	}
 
+	public List<alergiaModel> getAlergia() {
+		return alergia;
+	}
+	public void setAlergia(List<alergiaModel> alergia) {
+		this.alergia = alergia;
+	}
+	public List<problemaSaudeModel> getProblemasaude() {
+		return problemasaude;
+	}
+	public void setProblemasaude(List<problemaSaudeModel> problemasaude) {
+		this.problemasaude = problemasaude;
+	}
 
 }

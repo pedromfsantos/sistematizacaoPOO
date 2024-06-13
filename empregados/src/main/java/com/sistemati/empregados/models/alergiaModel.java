@@ -22,19 +22,26 @@ public class alergiaModel implements Serializable{
 	
     @ManyToOne
     @JoinColumn(name="id", nullable=false)
-    private empregadoModel empregadoAlergia;
+    private empregadoModel alergia;
     
-    public alergiaModel() {}
-    
-    /*private String alergia;
+    public Integer getId_alergia() {
+		return id_alergia;
+	}
 
-	public String getAlergia() {
+	public void setId_alergia(Integer id_alergia) {
+		this.id_alergia = id_alergia;
+	}
+
+	public empregadoModel getAlergia() {
 		return alergia;
 	}
 
-	public void setAlergia(String alergia) {
+	public void setAlergia(empregadoModel alergia) {
 		this.alergia = alergia;
-	}*/
+	}
+
+	public alergiaModel() {}
+    
     
 
 }

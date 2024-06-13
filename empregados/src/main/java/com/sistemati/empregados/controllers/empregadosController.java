@@ -37,6 +37,7 @@ public class empregadosController {
 	@PostMapping("/empregados")
 	public ResponseEntity<empregadoModel> salvar(@RequestBody @Valid empregadoDto empregado_dto){
 		var empregado_model = new empregadoModel();
+		System.out.println(empregado_dto);
 		BeanUtils.copyProperties(empregado_dto, empregado_model);
 		return ResponseEntity.status(HttpStatus.CREATED).body(empregados_repository.save(empregado_model));
 	}	
