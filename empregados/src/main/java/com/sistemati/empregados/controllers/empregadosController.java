@@ -26,6 +26,7 @@ public class empregadosController {
 	
 	@Autowired
 	empregadosRepository empregados_repository;
+
 	
 	@GetMapping("/empregados")
 	public ResponseEntity<List<empregadoModel>> listar(){
@@ -39,6 +40,7 @@ public class empregadosController {
 		var empregado_model = new empregadoModel();
 		System.out.println(empregado_dto);
 		BeanUtils.copyProperties(empregado_dto, empregado_model);
+		System.out.println(empregado_model.getAlergia());
 		return ResponseEntity.status(HttpStatus.CREATED).body(empregados_repository.save(empregado_model));
 	}	
 	

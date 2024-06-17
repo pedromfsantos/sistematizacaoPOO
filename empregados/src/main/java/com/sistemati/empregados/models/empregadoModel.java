@@ -25,13 +25,13 @@ public class empregadoModel implements Serializable {
 	private String empregado;
 	private String email;
 	
-	@OneToMany(mappedBy="telefone", cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="telefone", cascade=CascadeType.ALL)
 	private List<telefoneModel> telefone;
 	
-	@OneToMany(mappedBy="alergia", cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="empregado", cascade=CascadeType.ALL)
 	private List<alergiaModel> alergia;
 	
-	@OneToMany(mappedBy="problemasaude", cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="problemasaude", cascade=CascadeType.ALL)
 	private List<problemaSaudeModel> problemasaude;
 	
 

@@ -20,8 +20,9 @@ public class problemaSaudeModel implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id_problsaude;
 	
+	
     @ManyToOne
-    @JoinColumn(name="id", nullable=false)
+    @JoinColumn(name="id_fk", nullable=false)
     private empregadoModel problemasaude;
     
     public Integer getId_problsaude() {

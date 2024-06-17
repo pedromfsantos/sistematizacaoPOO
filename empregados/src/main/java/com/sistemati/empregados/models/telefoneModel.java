@@ -22,7 +22,7 @@ public class telefoneModel implements Serializable {
 	
 
 	@ManyToOne
-    @JoinColumn(name="id", nullable=false)
+    @JoinColumn(name="id_fk", nullable=false)
     private empregadoModel telefone;
     
 

@@ -2,6 +2,8 @@ package com.sistemati.empregados.models;
 
 import java.io.Serializable;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,12 +19,15 @@ public class alergiaModel implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "id_alergia")
 	private Integer id_alergia;
 	
-    @ManyToOne
-    @JoinColumn(name="id", nullable=false)
-    private empregadoModel alergia;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_fk", nullable=false)
+    private empregadoModel empregado;
+    
+    private String alergia;
     
     public Integer getId_alergia() {
 		return id_alergia;
@@ -32,15 +37,32 @@ public class alergiaModel implements Serializable{
 		this.id_alergia = id_alergia;
 	}
 
-	public empregadoModel getAlergia() {
+
+	public empregadoModel getEmpregado() {
+		return empregado;
+	}
+
+	public void setEmpregado(empregadoModel empregado) {
+		this.empregado = empregado;
+	}
+
+	public String getAlergia() {
 		return alergia;
 	}
 
-	public void setAlergia(empregadoModel alergia) {
+	public void setAlergia(String alergia) {
 		this.alergia = alergia;
 	}
 
 	public alergiaModel() {}
+
+	public alergiaModel(String alergia) {
+		super();
+		this.alergia = alergia;
+	}
+	
+	
+	
     
     
 
