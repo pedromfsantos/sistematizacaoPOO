@@ -13,9 +13,9 @@ import jakarta.validation.constraints.NotNull;
 
 public record empregadoDto( @NotBlank String empregado,
 		 					@NotNull String email,
-		 					@JsonDeserialize(using = StringListTrimDeserializer.class) List<telefoneModel> telefone,
-		 					@JsonDeserialize(using = StringListTrimDeserializer.class) List<alergiaModel> alergia,
-		 					@JsonDeserialize(using = StringListTrimDeserializer.class) List<problemaSaudeModel> problemasaude) {
+		 					List<telefoneModel> telefone,
+		 				    List<alergiaModel> alergia,
+		 				    List<problemaSaudeModel> problsaude) {
 	
 	
 	

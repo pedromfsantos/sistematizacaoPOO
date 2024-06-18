@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,14 +26,14 @@ public class empregadoModel implements Serializable {
 	private String empregado;
 	private String email;
 	
-	@OneToMany(mappedBy="telefone", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="empregado", cascade=CascadeType.ALL)
 	private List<telefoneModel> telefone;
 	
-	@OneToMany(mappedBy="empregado", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="empregado", cascade=CascadeType.ALL)
 	private List<alergiaModel> alergia;
 	
-	@OneToMany(mappedBy="problemasaude", cascade=CascadeType.ALL)
-	private List<problemaSaudeModel> problemasaude;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="empregado", cascade=CascadeType.ALL)
+	private List<problemaSaudeModel> problsaude;
 	
 
 	public Integer getId() {
@@ -41,12 +42,14 @@ public class empregadoModel implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
 	public String getEmpregado() {
 		return empregado;
 	}
 	public void setEmpregado(String empregado) {
 		this.empregado = empregado;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -54,24 +57,37 @@ public class empregadoModel implements Serializable {
 		this.email = email;
 	}
 	
+	
 	public List<telefoneModel> getTelefone() {
 		return telefone;
 	}
 	public void setTelefone(List<telefoneModel> telefone) {
 		this.telefone = telefone;
 	}
+	
+	
+	public List<problemaSaudeModel> getProblsaude() {
+		return problsaude;
+	}
+	public void setProblsaude(List<problemaSaudeModel> problsaude) {
+		this.problsaude = problsaude;
+	}
 
+	
 	public List<alergiaModel> getAlergia() {
 		return alergia;
 	}
 	public void setAlergia(List<alergiaModel> alergia) {
 		this.alergia = alergia;
 	}
-	public List<problemaSaudeModel> getProblemasaude() {
-		return problemasaude;
+	
+
+	
+	public empregadoModel(String empregado, String email) {
+		this.empregado = empregado;
+		this.email = email;
 	}
-	public void setProblemasaude(List<problemaSaudeModel> problemasaude) {
-		this.problemasaude = problemasaude;
-	}
+	
+	public empregadoModel() {}
 
 }

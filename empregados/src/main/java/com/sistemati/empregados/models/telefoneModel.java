@@ -22,36 +22,39 @@ public class telefoneModel implements Serializable {
 	
 
 	@ManyToOne
-    @JoinColumn(name="id_fk", nullable=false)
-    private empregadoModel telefone;
+    @JoinColumn(name="id_fk")
+    private empregadoModel empregado;
     
+	private String telefone;
+	
 
+	public empregadoModel getEmpregado() {
+		return empregado;
+	}
 
-	public empregadoModel getTelefone() {
+	public void setEmpregado(empregadoModel empregado) {
+		this.empregado = empregado;
+	}
+
+	public String getTelefone() {
 		return telefone;
 	}
-
-    public Integer getId_tel() {
-		return id_tel;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
-
+	public Integer getId_tel() {
+		return id_tel;
+	}
 
 	public void setId_tel(Integer id_tel) {
 		this.id_tel = id_tel;
 	}
-
-
-	public void setTelefone(empregadoModel telefone) {
+	
+	public telefoneModel() {}
+	   
+	public telefoneModel(String telefone) {
+		super();
 		this.telefone = telefone;
 	}
-
-
-
-	public telefoneModel() {}
-   
-
-
-    
-
 }

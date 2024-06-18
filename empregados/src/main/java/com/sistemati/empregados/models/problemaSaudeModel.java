@@ -14,6 +14,7 @@ import jakarta.persistence.Table;
 @Table(name = "problemassaude")
 public class problemaSaudeModel implements Serializable{
 
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -22,10 +23,28 @@ public class problemaSaudeModel implements Serializable{
 	
 	
     @ManyToOne
-    @JoinColumn(name="id_fk", nullable=false)
-    private empregadoModel problemasaude;
+    @JoinColumn(name="id_fk")
+    private empregadoModel empregado;
     
-    public Integer getId_problsaude() {
+    private String problsaude;
+    
+    public String getProblsaude() {
+		return problsaude;
+	}
+
+	public void setProblsaude(String problsaude) {
+		this.problsaude = problsaude;
+	}
+
+	public empregadoModel getEmpregado() {
+		return empregado;
+	}
+
+	public void setEmpregado(empregadoModel empregado) {
+		this.empregado = empregado;
+	}
+
+	public Integer getId_problsaude() {
 		return id_problsaude;
 	}
 
@@ -33,16 +52,14 @@ public class problemaSaudeModel implements Serializable{
 		this.id_problsaude = id_problsaude;
 	}
 
-	public empregadoModel getProblemasaude() {
-		return problemasaude;
-	}
-
-	public void setProblemasaude(empregadoModel problemasaude) {
-		this.problemasaude = problemasaude;
-	}
-
 	public problemaSaudeModel() {}
     
+	public problemaSaudeModel(String problsaude) {
+		super();
+		this.problsaude = problsaude;
+	}
+
+
 
 
     
