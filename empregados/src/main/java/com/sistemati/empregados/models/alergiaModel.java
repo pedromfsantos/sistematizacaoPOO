@@ -2,7 +2,7 @@ package com.sistemati.empregados.models;
 
 import java.io.Serializable;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,6 +29,7 @@ public class alergiaModel implements Serializable{
 	@Column(name = "id_alergia")
 	private Integer id_alergia;
 	
+	@JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_fk")
     private empregadoModel empregado;

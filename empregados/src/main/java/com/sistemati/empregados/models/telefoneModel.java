@@ -2,6 +2,8 @@ package com.sistemati.empregados.models;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +22,7 @@ public class telefoneModel implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id_tel;
 	
-
+	@JsonIgnore
 	@ManyToOne
     @JoinColumn(name="id_fk")
     private empregadoModel empregado;

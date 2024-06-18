@@ -28,94 +28,98 @@ import jakarta.validation.Valid;
 
 @RestController
 public class empregadosController {
-	
+
 	@Autowired
 	empregadosRepository empregados_repository;
-	
+
 	@Autowired
 	alergiasRepository alergia_repository;
 
-	
 	@GetMapping("/empregados")
-	public ResponseEntity<List<empregadoModel>> listar(){
+	public ResponseEntity<List<empregadoModel>> listar() {
 		List<empregadoModel> empregado_list = empregados_repository.findAll();
 		return ResponseEntity.status(HttpStatus.OK).body(empregado_list);
 	}
-		 
-		
+
 	@PostMapping("/empregados")
-	public ResponseEntity<empregadoModel> salvar(@RequestBody @Valid empregadoDto empregado_dto){
-		var empregado_model = new empregadoModel();
+	public ResponseEntity<empregadoModel> salvar(@RequestBody @Valid empregadoModel empregado_dto) {
+
+		var empregado_model = new empregadoModel(empregado_dto.getEmpregado(), empregado_dto.getEmail());
+
+		// BeanUtils.copyProperties(empregado_dto, empregado_model);
+
+		List<alergiaModel> alergias = new ArrayList<>();
+
+		for (alergiaModel alergiaIn : empregado_dto.getAlergia()) {
+
+			alergiaModel alergia = new alergiaModel(alergiaIn.getAlergia());
+
+			alergia.setEmpregado(empregado_model);
+			System.out.println(alergia.getEmpregado().getId());
+
+			alergias.add(alergia);
+			System.out.println("passando");
+
+		}
+
+		List<telefoneModel> telefones = new ArrayList<>();
+
+		for (telefoneModel telefoneIn : empregado_dto.getTelefone()) {
+
+			telefoneModel telefone = new telefoneModel(telefoneIn.getTelefone());
+
+			telefone.setEmpregado(empregado_model);
+
+			telefones.add(telefone);
+		}
+
+		List<problemaSaudeModel> problemasSaude = new ArrayList<>();
+		for (problemaSaudeModel problemaSaudeIn : empregado_dto.getProblsaude()) {
+
+			problemaSaudeModel problemaSaude = new problemaSaudeModel(problemaSaudeIn.getProblsaude());
+
+			problemaSaude.setEmpregado(empregado_model);
+
+			problemasSaude.add(problemaSaude);
+		}
 		
-		BeanUtils.copyProperties(empregado_dto, empregado_model);
+		empregado_model.setAlergia(alergias);
+		empregado_model.setProblsaude(problemasSaude);
+		empregado_model.setTelefone(telefones);
 		
-		//List<alergiaModel> alergias = new ArrayList<>();
-		/*
-		 * for (alergiaModel alergiaIn : empregado_model.getAlergia()) {
-		 * 
-		 * alergiaModel alergia = new alergiaModel(alergiaIn.getAlergia());
-		 * 
-		 * alergia.setEmpregado(empregado_model);
-		 * System.out.println(alergia.getEmpregado().getId());
-		 * 
-		 * alergias.add(alergia); }
-		 * 
-		 * List<telefoneModel> telefones = new ArrayList<>(); for (telefoneModel
-		 * telefoneIn : empregado_model.getTelefone()) {
-		 * 
-		 * telefoneModel telefone = new telefoneModel(telefoneIn.getTelefone());
-		 * 
-		 * telefone.setEmpregado(empregado_model);
-		 * 
-		 * telefones.add(telefone); }
-		 * 
-		 * List<problemaSaudeModel> problemasSaude = new ArrayList<>(); for
-		 * (problemaSaudeModel problemaSaudeIn : empregado_model.getProblsaude()) {
-		 * 
-		 * problemaSaudeModel problemaSaude = new
-		 * problemaSaudeModel(problemaSaudeIn.getProblsaude());
-		 * 
-		 * problemaSaude.setEmpregado(empregado_model);
-		 * 
-		 * problemasSaude.add(problemaSaude); }
-		 */
-		
-		System.out.println(empregado_dto.alergia());
-		System.out.println("Empregado Id "+ empregado_model.getId());
-		return ResponseEntity.status(HttpStatus.CREATED).body(empregados_repository.save(empregado_model));
-	}	
 	
+		return ResponseEntity.status(HttpStatus.CREATED).body(empregados_repository.save(empregado_model));
+	}
+
 	@GetMapping("/empregados/{id}")
-	public ResponseEntity<Object> detalhar(@PathVariable(value="id") Integer id){
+	public ResponseEntity<Object> detalhar(@PathVariable(value = "id") Integer id) {
 		Optional<empregadoModel> empregado = empregados_repository.findById(id);
-		if(empregado.isEmpty()) {
+		if (empregado.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empregado não encontrado.");
-		}	
+		}
 		return ResponseEntity.status(HttpStatus.OK).body(empregado.get());
 	}
-	
+
 	@PutMapping("/empregados/{id}")
-	public ResponseEntity<Object> atualizarEmpregado(@PathVariable(value="id") Integer id,
-												@RequestBody @Valid empregadoDto empregado_dto){
+	public ResponseEntity<Object> atualizarEmpregado(@PathVariable(value = "id") Integer id,
+			@RequestBody @Valid empregadoDto empregado_dto) {
 		Optional<empregadoModel> empregado = empregados_repository.findById(id);
-		if(empregado.isEmpty()) {
+		if (empregado.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empregado não encontrado.");
 		}
 		var empregadoModel = empregado.get();
 		BeanUtils.copyProperties(empregado_dto, empregadoModel);
 		return ResponseEntity.status(HttpStatus.OK).body(empregados_repository.save(empregadoModel));
 	}
-	
-	
+
 	@DeleteMapping("/empregados/{id}")
-	public ResponseEntity<Object> deletarEmpregado(@PathVariable(value="id") Integer id){
+	public ResponseEntity<Object> deletarEmpregado(@PathVariable(value = "id") Integer id) {
 		Optional<empregadoModel> empregado = empregados_repository.findById(id);
-		if(empregado.isEmpty()) {
+		if (empregado.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empregado não encontrado.");
-		} 
+		}
 		empregados_repository.delete(empregado.get());
 		return ResponseEntity.status(HttpStatus.OK).body("O epregado foi excluído da base de dados");
 	}
-	
-}
 
+}
