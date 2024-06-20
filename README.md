@@ -70,7 +70,7 @@ Windows:
 - No Eclipse, você precisa importar o projeto como um Exisiting Maven Projects.
 - Tenha certeza de que o projeto contem todos arquivos, principalmente as depêndencias gerenciadas pelo Maven.
 
-## ☕ Usando <nome_do_projeto>
+## ☕ Usando
 
 Para usar siga estas etapas:
 
