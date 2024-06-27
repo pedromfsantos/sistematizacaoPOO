@@ -68,6 +68,10 @@ Windows:
 ![image](https://github.com/pedromfsantos/sistematizacaoPOO/assets/13856875/51b40ecc-2d09-41f1-be74-5d500b7e1938)
 
 - No Eclipse, você precisa importar o projeto como um Exisiting Maven Projects.
+    - NOTA: O eclipse pode apresentar um bug nesse momento, que consiste no erro: the type java.lang.Object cannot be resolved. It is indirectly referenced from required .class files. De acordo com minhas pesquisas esse bug é associado ao build path do jdk dentro do projeto. Os seguintes passos podem ser tomados (todos eles são na expectativa de que o eclipse faça o rebuild do jdk):
+      - Fechar e abrir o projeto no Eclipse
+      - Remover e Adicionar o JDK como um JRE no build path
+      - Instalar outra versão do JDK, substituir a atual, atualizar o maven. Remover a versão do JDK que você acabou de colocar, voltar a utilizar a original e atualizar o maven (método que funcionou para mim)
 - Tenha certeza de que o projeto contem todos arquivos, principalmente as depêndencias gerenciadas pelo Maven.
 
 ## ☕ Usando
